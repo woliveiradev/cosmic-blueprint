@@ -1,21 +1,6 @@
-import { DomainEventMessage, DomainEventMetadata, EventTopic } from './types';
+import { Event } from '../event-bridge/event';
+import { DomainEventMessage } from './types';
 
-export abstract class DomainEvent<
-  Message extends DomainEventMessage = DomainEventMessage,
-> {
-  public readonly topic: EventTopic;
-  public readonly message: Message;
-  public readonly metadata: DomainEventMetadata;
-
-  protected constructor(topic: EventTopic, message: Message) {
-    this.topic = topic;
-    this.message = message;
-    this.metadata = {
-      timestamp: new Date(),
-    };
-  }
-}
-
-export interface EventHandler<Event extends DomainEvent = DomainEvent> {
-  handle(event: Event): Promise<void>;
-}
+export abstract class DomainEvent<Message = DomainEventMessage> extends Event<
+  Message & DomainEventMessage
+> {}

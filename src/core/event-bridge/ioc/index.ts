@@ -1,13 +1,13 @@
 import { Global, Module } from '@nestjs/common';
-import { EventBridgeImpl } from '../bridge';
 import { EVENT_BRIDGE_TOKEN } from './tokens';
+import { eventBridge } from '../bridge';
 
 @Global()
 @Module({
   providers: [
     {
       provide: EVENT_BRIDGE_TOKEN,
-      useClass: EventBridgeImpl,
+      useValue: eventBridge,
     },
   ],
   exports: [EVENT_BRIDGE_TOKEN],

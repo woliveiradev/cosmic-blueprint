@@ -1,13 +1,12 @@
-import { EventTopic } from '../domain/types';
-import { DomainEvent, EventHandler } from '../domain/event';
-import { EventBridge } from './types';
+import { EventBridge, EventTopic } from './types';
 import { Singleton } from '../decorators/singleton';
+import { Event, EventHandler } from './event';
 
 @Singleton
-export class EventBridgeImpl implements EventBridge {
+class EventBridgeImpl implements EventBridge {
   private handlers: Map<EventTopic, EventHandler[]> = new Map();
 
-  public publish(event: DomainEvent): void {
+  public publish(event: Event): void {
     const handlers = this.handlers.get(event.topic) || [];
     handlers.map((handler) => handler.handle(event));
   }
@@ -18,3 +17,5 @@ export class EventBridgeImpl implements EventBridge {
     this.handlers.set(topic, handlers);
   }
 }
+
+export const eventBridge = new EventBridgeImpl();

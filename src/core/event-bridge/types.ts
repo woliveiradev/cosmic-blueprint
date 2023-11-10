@@ -1,7 +1,12 @@
-import { EventTopic } from '../domain/types';
-import { DomainEvent, EventHandler } from '../domain/event';
+import { Event, EventHandler } from './event';
+
+export type EventTopic = string;
 
 export interface EventBridge {
-  publish(event: DomainEvent): void;
+  publish(event: Event): void;
   subscribe(topic: EventTopic, handler: EventHandler): void;
+}
+
+export interface EventMetadata {
+  readonly timestamp: Date;
 }
