@@ -1,7 +1,13 @@
 import { Module } from '@nestjs/common';
-import { EventBridgeModule } from 'core/event-bridge/ioc';
+import { eventBridge } from 'core/event-bridge';
+import { EVENT_BRIDGE_TOKEN } from './tokens';
 
 @Module({
-  imports: [EventBridgeModule],
+  providers: [
+    {
+      provide: EVENT_BRIDGE_TOKEN,
+      useValue: eventBridge,
+    },
+  ],
 })
 export class RootModule {}

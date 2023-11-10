@@ -3,7 +3,7 @@ import { Singleton } from '../decorators/singleton';
 import { Event, EventHandler } from './event';
 
 @Singleton
-class EventBridgeImpl implements EventBridge {
+export class EventBridgeImpl implements EventBridge {
   private handlers: Map<EventTopic, EventHandler[]> = new Map();
 
   public publish(event: Event): void {
@@ -17,5 +17,3 @@ class EventBridgeImpl implements EventBridge {
     this.handlers.set(topic, handlers);
   }
 }
-
-export const eventBridge = new EventBridgeImpl();

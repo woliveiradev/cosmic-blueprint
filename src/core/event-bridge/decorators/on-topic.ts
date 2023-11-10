@@ -1,4 +1,4 @@
-import { eventBridge } from '../bridge';
+import { eventBridge } from '../index';
 import { EventTopic } from '../types';
 
 export function OnTopic(topic: EventTopic): ClassDecorator {
