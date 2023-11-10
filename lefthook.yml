@@ -8,3 +8,8 @@ pre-commit:
       run: yarn eslint {staged_files}
     build:
       run: yarn build
+
+commit-msg:
+  commands:
+    commitlint:
+      run: yarn commitlint --edit {1}
