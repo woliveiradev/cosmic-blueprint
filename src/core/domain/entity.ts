@@ -7,7 +7,7 @@ export abstract class Entity<EntityProps> {
   private readonly createdAt: Date;
   private updatedAt: Date;
 
-  constructor({
+  protected constructor({
     id,
     createdAt,
     updatedAt,

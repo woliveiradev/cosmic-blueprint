@@ -7,7 +7,7 @@ export abstract class DomainEvent<
   public readonly message: Message;
   public readonly metadata: DomainEventMetadata;
 
-  constructor(topic: EventTopic, message: Message) {
+  protected constructor(topic: EventTopic, message: Message) {
     this.topic = topic;
     this.message = message;
     this.metadata = {
