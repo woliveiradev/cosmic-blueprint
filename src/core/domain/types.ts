@@ -1,5 +1,3 @@
-import { EventHandler } from './event';
-
 export type Identity = string;
 
 export interface BaseEntityProps {
@@ -16,12 +14,7 @@ export interface DomainEventMessage {
   readonly aggregateId: Identity;
 }
 
-export type EventTopic = string;
-
-export interface EventBridge {
-  publish(event: Event): void;
-  subscribe(topic: EventTopic, handler: EventHandler): void;
-}
+export type EventType = string;
 
 export interface EventMetadata {
   readonly timestamp: Date;
