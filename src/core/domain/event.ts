@@ -1,6 +1,7 @@
+import { createHash, randomUUID } from 'crypto';
 import { DomainEventMessage, EventMetadata, EventType } from './types';
 
-export abstract class DomainEvent<Message = any> {
+export abstract class DomainEvent<Message = object> {
   public readonly eventType: EventType;
   public readonly message: Message;
   public readonly metadata: EventMetadata;
@@ -11,8 +12,11 @@ export abstract class DomainEvent<Message = any> {
   ) {
     this.eventType = eventType;
     this.message = message;
+    const timestamp = new Date();
+    const key = `${randomUUID()}.${eventType}.${timestamp}`;
     this.metadata = {
-      timestamp: new Date(),
+      signatureKey: createHash('md5').update(key).digest('hex'),
+      timestamp,
     };
   }
 }

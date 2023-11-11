@@ -17,5 +17,6 @@ export interface DomainEventMessage {
 export type EventType = string;
 
 export interface EventMetadata {
+  readonly signatureKey: Identity;
   readonly timestamp: Date;
 }
