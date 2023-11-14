@@ -1,8 +1,9 @@
+import { EventAction, ActionFilter } from './core/types';
 import { Event } from './event/event.bus';
-import { EventAction, EventFilter, EventTopic } from './types';
+import { EventTopic } from './event/types';
 
 export interface EventRouter {
-  register(topic: EventTopic, action: EventAction, filter?: EventFilter): void;
+  register(topic: EventTopic, action: EventAction, filter?: ActionFilter): void;
 }
 
 export interface EventPublisher {

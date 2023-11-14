@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BusCore } from './core.bus';
 import { Event } from '../event/event.bus';
-import { EventActionStub } from '../stubs';
-import { EventAction } from '../types';
+import { EventActionStub } from './stubs/event-action.stub';
+import { EventAction } from './types';
 
 let event: Event;
 let eventActionStub: EventAction;

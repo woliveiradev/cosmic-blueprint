@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { BusCoreProxy } from './core-proxy.bus';
-import { BusCore } from '../core/core.bus';
+import { BusCore } from './core.bus';
 import { Event } from '../event/event.bus';
-import { InvalidTopicFormat, TopicNotRegistered } from '../exceptions';
-import { EventActionStub } from '../stubs';
-import { EventAction } from '../types';
+import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
+import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
+import { EventActionStub } from './stubs/event-action.stub';
+import { EventAction } from './types';
 
 let event: Event;
 let busCore: BusCore;

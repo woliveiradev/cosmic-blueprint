@@ -1,7 +1,8 @@
 import { EventBus } from '../bus';
 import { Event } from '../event/event.bus';
-import { InvalidTopicFormat, TopicNotRegistered } from '../exceptions';
-import { EventAction, EventFilter } from '../types';
+import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
+import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
+import { EventAction, ActionFilter } from './types';
 
 export class BusCoreProxy implements EventBus {
   constructor(private readonly busCore: EventBus) {}
@@ -9,7 +10,7 @@ export class BusCoreProxy implements EventBus {
   public register(
     topic: string,
     action: EventAction,
-    filter?: EventFilter,
+    filter?: ActionFilter,
   ): void {
     /*
       A topic will only be accepted if it follows the "Planet.EarthPlanet" or "Planet.*" pattern.

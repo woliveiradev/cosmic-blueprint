@@ -1,6 +1,7 @@
 import { EventBus } from '../bus';
 import { Event } from '../event/event.bus';
-import { BusAction, EventAction, EventFilter, EventTopic } from '../types';
+import { EventTopic } from '../event/types';
+import { BusAction, EventAction, ActionFilter } from './types';
 
 export class BusCore implements EventBus {
   private readonly router: Map<EventTopic, BusAction[]> = new Map();
@@ -8,7 +9,7 @@ export class BusCore implements EventBus {
   public register<EventMessage>(
     topic: EventTopic,
     action: EventAction,
-    filter?: EventFilter<EventMessage>,
+    filter?: ActionFilter<EventMessage>,
   ): void {
     const busActions = this.router.get(topic) ?? [];
     busActions.push({ action, filter });
@@ -18,7 +19,7 @@ export class BusCore implements EventBus {
   private async processAction(
     event: Event,
     action: EventAction,
-    filter?: EventFilter,
+    filter?: ActionFilter,
   ) {
     if (filter && !filter(event)) return;
     await action.run(event);

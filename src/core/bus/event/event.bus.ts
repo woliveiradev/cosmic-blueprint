@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { EventMetadata, EventTopic } from '../types';
+import { EventMetadata, EventTopic } from './types';
 
 export class Event<Message = unknown> {
   public readonly topic: EventTopic;
