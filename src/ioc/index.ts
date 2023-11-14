@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { BusModule } from 'core/bus/ioc';
 
-@Module({})
+@Module({
+  imports: [BusModule],
+})
 export class RootModule {}
