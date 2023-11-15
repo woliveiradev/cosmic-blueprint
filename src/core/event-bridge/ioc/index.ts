@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { BridgeCoreProxy } from '../core/core-proxy.bridge';
 import { BridgeCore } from '../core/core.bridge';
+import { EventBridge } from '../core/types';
 import { BRIDGE_CORE, EVENT_BRIDGE } from './tokens';
 
 @Global()
@@ -12,7 +13,7 @@ import { BRIDGE_CORE, EVENT_BRIDGE } from './tokens';
     },
     {
       provide: EVENT_BRIDGE,
-      useFactory: (bridgeCore) => {
+      useFactory: (bridgeCore: EventBridge) => {
         return new BridgeCoreProxy(bridgeCore);
       },
       inject: [BRIDGE_CORE],
