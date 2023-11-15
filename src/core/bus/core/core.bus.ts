@@ -1,27 +1,26 @@
-import { EventBus } from '../bus';
 import { Event } from '../event/event.bus';
 import { EventTopic } from '../event/types';
-import { BusAction, EventAction, ActionFilter } from './types';
+import { Action, EventAction, EventActionCondition, EventBus } from './types';
 
 export class BusCore implements EventBus {
-  private readonly router: Map<EventTopic, BusAction[]> = new Map();
+  private readonly router: Map<EventTopic, Action[]> = new Map();
 
   public register<EventMessage>(
     topic: EventTopic,
     action: EventAction,
-    filter?: ActionFilter<EventMessage>,
+    condition?: EventActionCondition<EventMessage>,
   ): void {
     const busActions = this.router.get(topic) ?? [];
-    busActions.push({ action, filter });
+    busActions.push({ action, condition });
     this.router.set(topic, busActions);
   }
 
   private async processAction(
     event: Event,
     action: EventAction,
-    filter?: ActionFilter,
+    condition?: EventActionCondition,
   ) {
-    if (filter && !filter(event)) return;
+    if (condition && !condition(event)) return;
     await action.run(event);
   }
 
@@ -30,11 +29,11 @@ export class BusCore implements EventBus {
     const wildcardTopic = `${mainTopic}.*`;
     const actions = this.router.get(event.topic) ?? [];
     const wildcardActions = this.router.get(wildcardTopic) ?? [];
-    actions.forEach(({ action, filter }) => {
-      this.processAction(event, action, filter);
+    actions.forEach(({ action, condition }) => {
+      this.processAction(event, action, condition);
     });
-    wildcardActions.forEach(({ action, filter }) => {
-      this.processAction(event, action, filter);
+    wildcardActions.forEach(({ action, condition }) => {
+      this.processAction(event, action, condition);
     });
   }
 
