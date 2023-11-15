@@ -1,15 +1,8 @@
 import { Module } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
 import { EventBridgeModule } from 'core/event-bridge/ioc';
-import { HttpExceptionHandler } from 'core/exceptions/http.exception';
+import { ExceptionsModule } from 'core/exceptions/ioc';
 
 @Module({
-  imports: [EventBridgeModule],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: HttpExceptionHandler,
-    },
-  ],
+  imports: [ExceptionsModule, EventBridgeModule],
 })
 export class RootModule {}
