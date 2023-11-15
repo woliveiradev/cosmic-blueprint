@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { BusModule } from 'core/bus/ioc';
+import { EventBridgeModule } from 'core/event-bridge/ioc';
 
 @Module({
-  imports: [BusModule],
+  imports: [EventBridgeModule],
 })
 export class RootModule {}

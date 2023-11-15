@@ -1,10 +1,10 @@
-import { Event } from '../event/event.bus';
+import { Event } from '../event/event.bridge';
 import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
 import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
-import { EventAction, EventActionCondition, EventBus } from './types';
+import { EventAction, EventActionCondition, EventBridge } from './types';
 
-export class BusCoreProxy implements EventBus {
-  constructor(private readonly busCore: EventBus) {}
+export class BridgeCoreProxy implements EventBridge {
+  constructor(private readonly bridgeCore: EventBridge) {}
 
   public register(
     topic: string,
@@ -17,17 +17,17 @@ export class BusCoreProxy implements EventBus {
     */
     const topicRules = /^[A-Z][a-zA-Z]+\.[A-Z][a-zA-Z]+$|^[a-zA-Z]+\.\*$/;
     if (!topicRules.test(topic)) throw new InvalidTopicFormat();
-    this.busCore.register(topic, action, condition);
+    this.bridgeCore.register(topic, action, condition);
   }
 
   public publish(event: Event): void {
     if (!this.topicRegistered(event.topic)) {
       throw new TopicNotRegistered(event.topic);
     }
-    this.busCore.publish(event);
+    this.bridgeCore.publish(event);
   }
 
   public topicRegistered(topic: string): boolean {
-    return this.busCore.topicRegistered(topic);
+    return this.bridgeCore.topicRegistered(topic);
   }
 }

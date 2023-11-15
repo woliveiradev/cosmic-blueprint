@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Event } from './event.bus';
+import { Event } from './event.bridge';
 
 describe('Base Event', () => {
   it('should have a common fields', () => {

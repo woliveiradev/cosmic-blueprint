@@ -1,5 +1,5 @@
 import { DomainEventMessage } from './types';
-import { Event, EventCorrelationId, EventTopic } from 'core/bus/event';
+import { Event, EventCorrelationId, EventTopic } from 'core/event-bridge/event';
 
 export abstract class DomainEvent<Message = unknown> extends Event<
   Message & DomainEventMessage

@@ -1,4 +1,4 @@
-import { Event } from '../event/event.bus';
+import { Event } from '../event/event.bridge';
 import { EventTopic } from '../event/types';
 
 export interface EventAction {
@@ -18,7 +18,7 @@ export interface EventPublisher {
   publish(event: Event): void;
 }
 
-export interface EventBus extends EventPublisher {
+export interface EventBridge extends EventPublisher {
   register(
     topic: EventTopic,
     action: EventAction,

@@ -1,8 +1,13 @@
-import { Event } from '../event/event.bus';
+import { Event } from '../event/event.bridge';
 import { EventTopic } from '../event/types';
-import { Action, EventAction, EventActionCondition, EventBus } from './types';
+import {
+  Action,
+  EventAction,
+  EventActionCondition,
+  EventBridge,
+} from './types';
 
-export class BusCore implements EventBus {
+export class BridgeCore implements EventBridge {
   private readonly router: Map<EventTopic, Action[]> = new Map();
 
   public register<EventMessage>(
@@ -10,9 +15,9 @@ export class BusCore implements EventBus {
     action: EventAction,
     condition?: EventActionCondition<EventMessage>,
   ): void {
-    const busActions = this.router.get(topic) ?? [];
-    busActions.push({ action, condition });
-    this.router.set(topic, busActions);
+    const actions = this.router.get(topic) ?? [];
+    actions.push({ action, condition });
+    this.router.set(topic, actions);
   }
 
   private async processAction(
