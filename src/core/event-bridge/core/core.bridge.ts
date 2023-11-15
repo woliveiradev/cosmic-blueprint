@@ -1,5 +1,6 @@
 import { Event } from '../event/event.bridge';
 import { EventTopic } from '../event/types';
+import { withWildcard } from './utils/with-wildcard.util';
 import {
   Action,
   EventAction,
@@ -29,23 +30,23 @@ export class BridgeCore implements EventBridge {
     await action.run(event);
   }
 
+  private getActions(topics: EventTopic[]): Action[] {
+    return topics.flatMap((topic) => {
+      return this.router.get(topic) || [];
+    });
+  }
+
   public publish(event: Event): void {
     const [mainTopic] = event.topic.split('.');
-    const wildcardTopic = `${mainTopic}.*`;
-    const actions = this.router.get(event.topic) ?? [];
-    const wildcardActions = this.router.get(wildcardTopic) ?? [];
+    const actions = this.getActions([event.topic, withWildcard(mainTopic)]);
     actions.forEach(({ action, condition }) => {
-      this.processAction(event, action, condition);
-    });
-    wildcardActions.forEach(({ action, condition }) => {
       this.processAction(event, action, condition);
     });
   }
 
   public topicRegistered(topic: EventTopic): boolean {
     const [mainTopic] = topic.split('.');
-    const hasEqualTopic = this.router.has(topic);
-    const hasWildcardTopic = this.router.has(`${mainTopic}.*`);
-    return hasEqualTopic || hasWildcardTopic;
+    const actions = this.getActions([topic, withWildcard(mainTopic)]);
+    return actions.length > 0;
   }
 }
