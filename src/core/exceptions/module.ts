@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionHandler } from '../http.exception';
-import { ContextModule } from 'core/context/ioc';
+import { HttpExceptionHandler } from './http.exception';
 
 @Module({
-  imports: [ContextModule],
   providers: [
     {
       provide: APP_FILTER,

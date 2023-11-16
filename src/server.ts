@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
-import { RootModule } from 'ioc';
+import { RootModule } from './module';
 
 async function bootstrap() {
   const app = await NestFactory.create(RootModule, new FastifyAdapter());

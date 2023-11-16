@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { BridgeCoreProxy } from '../core/core-proxy.bridge';
-import { BridgeCore } from '../core/core.bridge';
-import { EventBridge } from '../core/types';
+import { BridgeCoreProxy } from './core/core-proxy.bridge';
+import { BridgeCore } from './core/core.bridge';
+import { EventBridge } from './core/types';
 import { BRIDGE_CORE_TOKEN, EVENT_BRIDGE_TOKEN } from './tokens';
 
 @Module({
