@@ -1,21 +1,21 @@
 import { RequestContext as NestRequestContext } from 'nestjs-request-context';
-import { RequestId } from './types';
+import { RequestContext, RequestId } from './types';
 
-export class AppRequestContext extends NestRequestContext {
+class AppRequestContext extends NestRequestContext {
   requestId: string;
 }
 
-export class RequestContext {
-  static getContext(): AppRequestContext {
+export class RequestContextImpl implements RequestContext {
+  private getContext(): AppRequestContext {
     return AppRequestContext.currentContext.req;
   }
 
-  static setRequestId(requestId: RequestId): void {
+  public setRequestId(requestId: RequestId): void {
     const context = this.getContext();
     context.requestId = requestId;
   }
 
-  static getRequestId(): RequestId {
+  public getRequestId(): RequestId {
     return this.getContext().requestId;
   }
 }

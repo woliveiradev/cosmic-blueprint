@@ -1,9 +1,20 @@
-import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { Observable } from 'rxjs';
-import { RequestContext } from './request.context';
+import {
+  CallHandler,
+  ExecutionContext,
+  Inject,
+  NestInterceptor,
+} from '@nestjs/common';
+import { REQUEST_CONTEXT_TOKEN } from './ioc/tokens';
+import { RequestContext } from './types';
 
 export class RequestContextInterceptor implements NestInterceptor {
+  constructor(
+    @Inject(REQUEST_CONTEXT_TOKEN)
+    private readonly requestContext: RequestContext,
+  ) {}
+
   intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
@@ -14,7 +25,7 @@ export class RequestContextInterceptor implements NestInterceptor {
     /*
      * Setting an ID in the global context for each request.
      */
-    RequestContext.setRequestId(requestId);
+    this.requestContext.setRequestId(requestId);
     return next.handle();
   }
 }
