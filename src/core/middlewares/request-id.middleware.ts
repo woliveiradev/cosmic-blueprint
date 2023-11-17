@@ -1,8 +1,7 @@
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { RequestContext } from 'core/request-context';
-import { REQUEST_CONTEXT_TOKEN } from '../request-context/tokens';
+import { RequestContext, REQUEST_CONTEXT_TOKEN } from 'core/request-context';
 
 @Injectable()
 export class RequestIdMiddleware implements NestMiddleware {

@@ -6,8 +6,7 @@ import {
   HttpException,
   Inject,
 } from '@nestjs/common';
-import { RequestContext } from 'core/request-context';
-import { REQUEST_CONTEXT_TOKEN } from 'core/request-context/tokens';
+import { RequestContext, REQUEST_CONTEXT_TOKEN } from 'core/request-context';
 
 @Catch(HttpException)
 export class HttpExceptionHandler implements ExceptionFilter {

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { EventBridgeModule } from 'core/event-bridge/module';
-import { ExceptionsModule } from 'core/exceptions/module';
-import { MiddlewaresModule } from 'core/middlewares/module';
-import { RequestContextModule } from 'core/request-context/module';
+import { EventBridgeModule } from 'core/event-bridge';
+import { ExceptionsModule } from 'core/exceptions';
+import { MiddlewaresModule } from 'core/middlewares';
+import { RequestContextModule } from 'core/request-context';
 
 @Module({
   imports: [
