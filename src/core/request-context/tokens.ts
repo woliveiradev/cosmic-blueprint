@@ -1,0 +1,1 @@
+export const REQUEST_CONTEXT_TOKEN = Symbol('REQUEST_CONTEXT');
