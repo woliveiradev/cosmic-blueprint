@@ -1,8 +1,8 @@
 import { AsyncLocalStorage } from 'async_hooks';
-import { RequestContextProps } from './types';
+import { RequestContext, RequestContextProps } from './types';
 import { RequestContextNotFound } from './exceptions/request-context-not-found.exception';
 
-export class RequestContext {
+export class RequestContextImpl implements RequestContext {
   private readonly store = new AsyncLocalStorage<RequestContextProps>();
 
   public getContext(): RequestContextProps {
