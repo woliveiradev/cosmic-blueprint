@@ -5,6 +5,10 @@ import { RequestContextNotFound } from './exceptions/request-context-not-found.e
 export class RequestContextImpl implements RequestContext {
   private readonly store = new AsyncLocalStorage<RequestContextProps>();
 
+  public hasContext(): boolean {
+    return !!this.store.getStore();
+  }
+
   public getContext(): RequestContextProps {
     const store = this.store.getStore();
     if (!store) throw new RequestContextNotFound();

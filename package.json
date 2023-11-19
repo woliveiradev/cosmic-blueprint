@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start --entryFile server",
-    "start:dev": "nest start --entryFile server --watch",
+    "start:dev": "nest start --entryFile server --watch --resolveJsonModule",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node build/main",
     "test": "vitest",
@@ -23,7 +23,8 @@
     "@nestjs/platform-fastify": "^10.2.8",
     "fastify": "^4.24.3",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.0",
