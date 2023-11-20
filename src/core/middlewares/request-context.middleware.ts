@@ -6,7 +6,7 @@ import { Logger, LOGGER_TOKEN } from 'core/logger';
 import { RequestContext, REQUEST_CONTEXT_TOKEN } from '../request-context';
 
 @Injectable()
-export class ContextMiddleware implements NestMiddleware {
+export class RequestContextMiddleware implements NestMiddleware {
   constructor(
     @Inject(REQUEST_CONTEXT_TOKEN)
     private readonly requestContext: RequestContext,
