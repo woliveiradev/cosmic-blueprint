@@ -4,6 +4,7 @@ export class RequestContextStub implements RequestContext {
   public getContext(): RequestContextProps {
     return {
       correlationId: 'req-1',
+      hostname: 'server-1',
       client: {
         ip: '127.0.0.1',
       },

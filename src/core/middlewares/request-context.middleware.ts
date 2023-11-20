@@ -17,9 +17,10 @@ export class RequestContextMiddleware implements NestMiddleware {
   public use(request: FastifyRequest, response: FastifyReply, next: any) {
     const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
     const correlationId = randomUUID();
-    const { ip, url, method, headers } = request;
+    const { ip, url, method, headers, hostname } = request;
     const context = {
       correlationId,
+      hostname,
       client: {
         ip,
         userAgent: headers['user-agent'],

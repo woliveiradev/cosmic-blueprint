@@ -1,5 +1,6 @@
 export interface RequestContextProps {
   correlationId: string;
+  hostname: string;
   request: {
     method: string;
     url: string;
