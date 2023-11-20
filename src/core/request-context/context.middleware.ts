@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
 import { Logger, LOGGER_TOKEN } from 'core/logger';
-import { RequestContext, REQUEST_CONTEXT_TOKEN } from 'core/request-context';
+import { RequestContext, REQUEST_CONTEXT_TOKEN } from '../request-context';
 
 @Injectable()
 export class ContextMiddleware implements NestMiddleware {

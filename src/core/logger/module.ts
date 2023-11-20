@@ -1,11 +1,11 @@
-import { Global, Module, Scope } from '@nestjs/common';
+import { Global, Module, Scope, forwardRef } from '@nestjs/common';
 import { LOGGER_TOKEN } from './tokens';
 import { LoggerImpl } from './logger';
 import { RequestContextModule } from 'core/request-context';
 
 @Global()
 @Module({
-  imports: [RequestContextModule],
+  imports: [forwardRef(() => RequestContextModule)],
   providers: [
     {
       provide: LOGGER_TOKEN,
