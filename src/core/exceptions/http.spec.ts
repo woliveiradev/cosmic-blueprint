@@ -3,8 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { HttpExceptionHandler } from './http.exception';
 import { argumentsHost, mockSend } from './mocks/http-exception.mock';
-import { REQUEST_CONTEXT_TOKEN } from 'core/request-context/tokens';
-import { RequestContextStub } from 'core/request-context/stubs/request-context.stub';
+import { LOGGER_TOKEN } from 'core/logger';
+import { LoggerStub } from 'core/logger/stubs/logger.stub';
 
 describe('Http Exception Handler', () => {
   let httpExceptionHandler: HttpExceptionHandler;
@@ -14,10 +14,7 @@ describe('Http Exception Handler', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         HttpExceptionHandler,
-        {
-          provide: REQUEST_CONTEXT_TOKEN,
-          useClass: RequestContextStub,
-        },
+        { provide: LOGGER_TOKEN, useClass: LoggerStub },
       ],
     }).compile();
     httpExceptionHandler =
