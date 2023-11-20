@@ -1,7 +1,7 @@
 {
-  "name": "megan",
+  "name": "nestjs-blueprint",
   "version": "0.0.1",
-  "description": "",
+  "description": "A nestjs template for Domain Driven Design projects",
   "author": "Wesley Oliveira",
   "private": true,
   "license": "MIT",
