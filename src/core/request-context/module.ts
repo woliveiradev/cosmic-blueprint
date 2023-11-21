@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { RequestContextImpl } from './request.context';
-import { REQUEST_CONTEXT_TOKEN } from './tokens';
+
+export const REQUEST_CONTEXT_TOKEN = Symbol('REQUEST_CONTEXT');
 
 @Module({
   providers: [
