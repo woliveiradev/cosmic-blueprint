@@ -14,7 +14,10 @@ describe('Http Exception Handler', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         HttpExceptionHandler,
-        { provide: LOGGER_TOKEN, useClass: LoggerStub },
+        {
+          provide: LOGGER_TOKEN,
+          useClass: LoggerStub,
+        },
       ],
     }).compile();
     httpExceptionHandler =
