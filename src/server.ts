@@ -18,7 +18,6 @@ async function bootstrap() {
     optionsSuccessStatus: HttpStatus.NO_CONTENT,
   });
   app.register(helmet);
-  app.setGlobalPrefix('/api');
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',
