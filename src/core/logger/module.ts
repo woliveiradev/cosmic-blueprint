@@ -1,6 +1,6 @@
 import { Global, Module, Scope } from '@nestjs/common';
 import { RequestContextModule } from 'core/request-context';
-import { LoggerImpl } from './logger';
+import { WinstonLogger } from './winston.logger';
 
 export const LOGGER_TOKEN = Symbol('LOGGER');
 
@@ -10,7 +10,7 @@ export const LOGGER_TOKEN = Symbol('LOGGER');
   providers: [
     {
       provide: LOGGER_TOKEN,
-      useClass: LoggerImpl,
+      useClass: WinstonLogger,
       scope: Scope.TRANSIENT,
     },
   ],
