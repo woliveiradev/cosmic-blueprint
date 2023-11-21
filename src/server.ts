@@ -1,6 +1,6 @@
 import helmet from '@fastify/helmet';
 import { NestFactory } from '@nestjs/core';
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, VersioningType } from '@nestjs/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -18,6 +18,11 @@ async function bootstrap() {
     optionsSuccessStatus: HttpStatus.NO_CONTENT,
   });
   app.register(helmet);
+  app.setGlobalPrefix('/api');
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: '1',
+  });
   await app.listen(3333);
 }
 bootstrap();
