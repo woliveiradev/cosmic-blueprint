@@ -18,6 +18,7 @@ export abstract class Entity<EntityProps> {
     const now = new Date();
     this.createdAt = createdAt ?? now;
     this.updatedAt = updatedAt ?? now;
+    this.validate();
   }
 
   protected abstract validate(): void;
