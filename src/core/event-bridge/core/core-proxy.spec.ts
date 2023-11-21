@@ -5,6 +5,7 @@ import { Event } from '../event/event.bridge';
 import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
 import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
 import { EventActionStub } from './stubs/event-action.stub';
+import { LoggerStub } from 'core/logger/stubs/logger.stub';
 import { EventAction } from './types';
 
 let event: Event;
@@ -14,7 +15,8 @@ let eventActionStub: EventAction;
 
 beforeEach(() => {
   event = new Event('Test.EventEmitted', {});
-  bridgeCore = new BridgeCore();
+  const logger = new LoggerStub();
+  bridgeCore = new BridgeCore(logger);
   bridgeCoreProxy = new BridgeCoreProxy(bridgeCore);
   eventActionStub = new EventActionStub();
 });

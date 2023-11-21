@@ -3,14 +3,17 @@ import { BridgeCore } from './core.bridge';
 import { Event } from '../event/event.bridge';
 import { EventActionStub } from './stubs/event-action.stub';
 import { EventAction } from './types';
+import { LoggerStub } from 'core/logger/stubs/logger.stub';
+import { randomUUID } from 'crypto';
 
 let event: Event;
 let eventActionStub: EventAction;
 let bridgeCore: BridgeCore;
 
 beforeEach(() => {
-  event = new Event('Test.EventEmitted', {});
-  bridgeCore = new BridgeCore();
+  event = new Event('Test.EventEmitted', {}, randomUUID());
+  const logger = new LoggerStub();
+  bridgeCore = new BridgeCore(logger);
   eventActionStub = new EventActionStub();
 });
 
