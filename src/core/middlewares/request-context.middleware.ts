@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { randomUUID } from 'crypto';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { Request, Response } from 'express';
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
 import { Logger, LOGGER_TOKEN } from 'core/logger';
 import { RequestContext, REQUEST_CONTEXT_TOKEN } from '../request-context';
@@ -14,7 +14,7 @@ export class RequestContextMiddleware implements NestMiddleware {
     private readonly logger: Logger,
   ) {}
 
-  public use(request: FastifyRequest, response: FastifyReply, next: any) {
+  public use(request: Request, response: Response, next: any) {
     const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
     const correlationId = randomUUID();
     const { ip, url, method, headers, hostname } = request;

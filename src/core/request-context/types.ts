@@ -6,7 +6,7 @@ export interface RequestContextProps {
     url: string;
   };
   client: {
-    ip: string;
+    ip?: string;
     userAgent?: string;
   };
   buildInfo: {

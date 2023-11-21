@@ -1,4 +1,3 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
 import {
   ArgumentsHost,
   Catch,
@@ -14,8 +13,8 @@ export class HttpExceptionHandler implements ExceptionFilter {
 
   catch(exception: HttpException, host: ArgumentsHost): void {
     const context = host.switchToHttp();
-    const request = context.getRequest<FastifyRequest>();
-    const response = context.getResponse<FastifyReply>();
+    const request = context.getRequest();
+    const response = context.getResponse();
     const status = exception.getStatus();
     this.logger.error('Request interrupted with exception', exception.stack);
     response.status(status).send({
