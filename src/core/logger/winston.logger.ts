@@ -1,15 +1,14 @@
 import * as winston from 'winston';
-import { Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { REQUEST_CONTEXT_TOKEN, RequestContext } from 'core/request-context';
+import { Inject } from '@nestjs/common';
+import { Context } from 'core/context';
 import { Logger, LoggerLevel } from './types';
 
 export class WinstonLogger implements Logger {
   private readonly logger: winston.Logger;
 
   constructor(
-    @Inject(REQUEST_CONTEXT_TOKEN)
-    private readonly requestContext: RequestContext,
+    @Inject(ConfigService)
     private readonly environment: ConfigService,
   ) {
     this.logger = winston.createLogger({
@@ -36,15 +35,7 @@ export class WinstonLogger implements Logger {
     if (this.environment.get('NODE_ENV') !== 'production') {
       this.logger.add(
         new winston.transports.Console({
-          format: winston.format.printf((log) => {
-            const { timestamp, level, message, stackTrace } = log;
-            const { request, correlationId } = log.meta;
-            return `${timestamp} ${level.toLocaleUpperCase()} [${
-              request.method
-            } ${request.url}]: ${message} - Correlation ID: ${correlationId} ${
-              stackTrace ? '\n' + stackTrace : ''
-            } \n`;
-          }),
+          format: winston.format.prettyPrint(),
         }),
       );
     }
@@ -52,8 +43,8 @@ export class WinstonLogger implements Logger {
 
   private log(level: LoggerLevel, message: string, stackTrace?: any): void {
     const logMessage = { level, message, stackTrace, meta: {} };
-    if (this.requestContext.hasContext()) {
-      const context = this.requestContext.getContext();
+    if (Context.has()) {
+      const context = Context.get();
       logMessage.meta = context;
     }
     this.logger.log(logMessage);
