@@ -11,7 +11,7 @@
     "start": "nest start --entryFile server",
     "start:dev": "nest start --entryFile server --watch --resolveJsonModule",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node build/main",
+    "start:prod": "node build/server",
     "test": "vitest",
     "test:unit": "vitest spec",
     "test:e2e": "vitest e2e",
