@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { Request, Response } from 'express';
 import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
 import { Logger, LOGGER_TOKEN } from 'core/logger';
-import { Context } from './request.context';
+import { Context } from './context';
 
 @Injectable()
 export class ContextMiddleware implements NestMiddleware {

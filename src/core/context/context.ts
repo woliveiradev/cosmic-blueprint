@@ -10,7 +10,7 @@ export class Context {
 
   static get() {
     /*
-      RequestNotFound is an error that should only happen in development so that
+      ContextNotFound is an error that should only happen in development so that
       the developer doesn't try to take context data when it doesn't exist
      */
     const store = this.store.getStore();
