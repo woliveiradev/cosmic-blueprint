@@ -74,6 +74,14 @@ describe('Bridge Core Proxy Validate Publish Event', () => {
     );
   });
 
+  it('should not be albe to forward a event publish when topic contain a wildcard', () => {
+    bridgeCoreProxy.register('Test.*', eventActionStub);
+    const eventWithInvalidTopic = new Event('Test.*', {});
+    expect(() => bridgeCoreProxy.publish(eventWithInvalidTopic)).toThrowError(
+      new InvalidTopicFormat(),
+    );
+  });
+
   it('should be able to forward a event publish when topic exists', () => {
     const actionSpy = vi.spyOn(bridgeCore, 'publish');
     bridgeCoreProxy.register(event.topic, eventActionStub);

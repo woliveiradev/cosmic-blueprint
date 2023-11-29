@@ -1,5 +1,5 @@
 import { Event } from '../event/event.bridge';
-import { topicRules } from './constants';
+import { eventTopicRules, topicRules } from './constants';
 import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
 import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
 import { EventAction, EventActionCondition, EventBridge } from './types';
@@ -23,6 +23,12 @@ export class BridgeCoreProxy implements EventBridge {
   public publish(event: Event): void {
     if (!this.topicRegistered(event.topic)) {
       throw new TopicNotRegistered(event.topic);
+    }
+    /*
+      A event Topic cannot contain a wildcard
+    */
+    if (!eventTopicRules.test(event.topic)) {
+      throw new InvalidTopicFormat();
     }
     this.bridgeCore.publish(event);
   }

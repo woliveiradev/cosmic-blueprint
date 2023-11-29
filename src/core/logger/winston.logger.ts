@@ -11,9 +11,10 @@ export class WinstonLogger implements Logger {
     @Inject(ConfigService)
     private readonly environment: ConfigService,
   ) {
+    const isProduction = this.environment.get('NODE_ENV') === 'production';
     this.logger = winston.createLogger({
       exitOnError: false,
-      level: LoggerLevel.INFO,
+      level: isProduction ? LoggerLevel.INFO : LoggerLevel.DEBUG,
       format: winston.format.combine(
         winston.format.timestamp({
           format: 'YYYY-MM-DD HH:mm:ss',
@@ -32,7 +33,7 @@ export class WinstonLogger implements Logger {
         }),
       ],
     });
-    if (this.environment.get('NODE_ENV') !== 'production') {
+    if (!isProduction) {
       this.logger.add(
         new winston.transports.Console({
           format: winston.format.prettyPrint(),

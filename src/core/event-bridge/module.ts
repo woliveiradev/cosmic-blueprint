@@ -24,6 +24,6 @@ export const EVENT_BRIDGE_TOKEN = Symbol('EVENT_BRIDGE');
       inject: [BRIDGE_CORE_TOKEN],
     },
   ],
-  exports: [BRIDGE_CORE_TOKEN],
+  exports: [EVENT_BRIDGE_TOKEN],
 })
 export class EventBridgeModule {}

@@ -31,13 +31,8 @@ export class BridgeCore implements EventBridge {
     condition?: EventActionCondition,
   ) {
     if (condition && !condition(event)) return;
-    const { correlationId } = event.metadata;
     await action.run(event);
-    this.logger.info(
-      `Action processed for topic: ${event.topic} ${
-        correlationId ? '- Correlation ID: ' + correlationId : ''
-      }`,
-    );
+    this.logger.info(`Action processed for topic: ${event.topic}`);
   }
 
   private getActions(topics: EventTopic[]): Action[] {
@@ -49,12 +44,7 @@ export class BridgeCore implements EventBridge {
   public publish(event: Event): void {
     const [mainTopic] = event.topic.split('.');
     const actions = this.getActions([event.topic, withWildcard(mainTopic)]);
-    const { correlationId } = event.metadata;
-    this.logger.info(
-      `New event published for topic: ${event.topic} ${
-        correlationId ? '- Correlation ID: ' + correlationId : ''
-      }`,
-    );
+    this.logger.info(`New event published for topic: ${event.topic}`);
     actions.forEach(({ action, condition }) => {
       this.processAction(event, action, condition);
     });
