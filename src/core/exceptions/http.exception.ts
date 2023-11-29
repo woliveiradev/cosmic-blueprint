@@ -20,7 +20,7 @@ export class HttpExceptionHandler implements ExceptionFilter {
     response.status(status).send({
       code: exception.name,
       message: exception.message,
-      path: request.url,
+      resource_path: request.url,
       timestamp: new Date().toISOString(),
     });
   }

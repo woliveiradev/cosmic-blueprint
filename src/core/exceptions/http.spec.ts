@@ -30,7 +30,7 @@ describe('Http Exception Handler', () => {
     expect(mockSend).toHaveBeenCalledWith({
       code: exception.name,
       message: exception.message,
-      path: '/',
+      resource_path: '/',
       timestamp: new Date().toISOString(),
     });
   });
