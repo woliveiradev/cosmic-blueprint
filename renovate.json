@@ -5,9 +5,7 @@
   "stabilityDays": 3,
   "prCreation": "not-pending",
   "labels": ["dependencies"],
-  "assignees": [
-    "woliveiradev"
-  ],
+  "assignees": ["woliveiradev"],
   "automerge": false,
   "packageRules": [
     {
