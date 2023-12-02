@@ -5,5 +5,18 @@
   "stabilityDays": 3,
   "prCreation": "not-pending",
   "labels": ["dependencies"],
-  "automerge": false
+  "assignees": [
+    "woliveiradev"
+  ],
+  "automerge": false,
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@nestjs/"],
+      "groupName": "nestjs packages"
+    },
+    {
+      "matchPackageNames": ["@types/*"],
+      "groupName": "typescript definitions"
+    }
+  ]
 }
