@@ -9,9 +9,7 @@
 # Table of Contents
 - [Introduction](#introduction)
 - [Current Versions](#current-versions)
-- [Architecture](#architecture)
-  - [Domain-Driven Design](#domain-driven-design)
-  - [Event Bridge](#event-bridge)
+- [Structure of Template](#structure-of-template)
 - [Usage](#usage)
 - [Tests](#tests)
 - [Contribution](#contribution)
@@ -28,14 +26,20 @@ This template is based on:
 - Nestjs v10.0.0
 - Express v4.18.2
 
-# Architecture
-## Domain-Driven Design
+# Structure of Template
+```md
+|-- src
+|   |-- context
+|   |-- domain
+|   |-- event-bridge
+|   |-- exceptions
+|   |-- logger
+|-- modules
+|-- module.ts
+|-- server.ts
+```
 
-<img src="./docs/ddd-diagram.png" />
-
-Domain-Driven Design (DDD) is a powerful and conceptually rich approach to software development, focused on building systems that faithfully reflect the complexity of the domain to which they belong. Introduced by Eric Evans in his seminal book "Domain-Driven Design: Tackling Complexity in the Heart of Software", DDD offers a set of principles, patterns and practices designed to effectively align source code with the nuances and intricate business rules of a given domain. See more [here](https://martinfowler.com/bliki/DomainDrivenDesign.html).
-
-## Event Bridge
+# Event Bridge
 <img src="./docs/event-bridge-diagram.png" />
 
 Event Bridge is the application's ***Events*** router. It is responsible for receiving ***Events*** from one or more points of origin (***Triggers***) and matching them with the ***Actions*** registered based on ***Topics***. It can be used to communicate between application components or to communicate with external systems.
