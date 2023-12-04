@@ -6,7 +6,7 @@
 
 <p>Template for Back-End projects with Nodejs, Nestjs, Modular Monoliths and Domain Driven Design.</p>
 
-# Índice
+# Table of Contents
 - [Introduction](#introduction)
 - [Current Versions](#current-versions)
 - [Architecture](#architecture)
@@ -55,14 +55,13 @@ Event Bridge is the application's ***Events*** router. It is responsible for rec
 - ***Filters*** are optional validators that can be defined when an ***Action*** is registered. The ***Filters*** receive the data from the published ***Event*** and through it you can perform checks to execute ***Actions*** only when certain conditions are met. Let's look at the following ***Event***:
 
   ```json
-    Event {
+    {
       "topic": "Accounts.Created",
       "message": {
         "name": "John Doe",
         "phone": "+5519999999999",
         "email": null
-      },
-      ...
+      }
     }
   ```
 
