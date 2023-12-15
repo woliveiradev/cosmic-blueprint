@@ -1,14 +1,11 @@
 <h1>Cosmic Blueprint</h1>
 
-<h3>
-  🚧 Under construction... 🚧
-</h3>
-
 <p>Template for Back-End projects with Nodejs, Nestjs, Modular Monoliths and Domain Driven Design.</p>
 
 # Table of Contents
 - [Introduction](#introduction)
 - [Current Versions](#current-versions)
+- [Features](#features)
 - [Structure of Template](#structure-of-template)
 - [Usage](#usage)
 - [Tests](#tests)
@@ -26,55 +23,74 @@ This template is based on:
 - Nestjs v10.0.0
 - Express v4.18.2
 
+# Features
+- Code style with Eslint, Prettier and Editorconfig
+- Lefthook for git hook commands
+- Semantic commit with Commitlint
+- Automated tests with Vitest
+- CORS
+- Security http headers with Helmet
+- Logging using Winston
+- Environment variables using Nestjs config module
+- Event Bridge: [See more](./docs/EVENT_BRIDGE.md)
+
 # Structure of Template
 ```md
-|-- src
-|   |-- context
-|   |-- domain
-|   |-- event-bridge
-|   |-- exceptions
-|   |-- logger
-|-- modules
-|-- module.ts
-|-- server.ts
+|- src
+|  |- core
+|  |  |- context
+|  |  |- domain
+|  |  |- event-bridge
+|  |  |- exceptions
+|  |  └─ logger
+|  |- modules
+|  |- module.ts
+|  └─ server.ts
+|- .eslintrc.js
+|- .nvmrc
+|- commitlint.config.js
+|- lefthook.yml
+|- nest-cli.json
+|- package.json
+|- README.md
+|- tsconfig.build.json
+|- tsconfig.json
+|- vitest.config.ts
+└─ yarn.lock
 ```
 
-# Event Bridge
-<img src="./docs/event-bridge-diagram.png" />
-
-Event Bridge is the application's ***Events*** router. It is responsible for receiving ***Events*** from one or more points of origin (***Triggers***) and matching them with the ***Actions*** registered based on ***Topics***. It can be used to communicate between application components or to communicate with external systems.
-
-- ***Event*** is something important that occurs in the system and other components care about it, for example: New user registered, Order confirmed etc...
-
-- A ***Topic*** tells us what type of ***Event*** is being published, it is through this that the Event Bridge knows which ***Actions*** should be executed. Every topic is made up of two parts: the main topic and the subtopic, for example: "Accounts.Created". You can also register actions with wildcard topics, for example: "Accounts.*".
-
-- A ***Trigger*** can be any function that can publish an **Event** to the Event Bridge. This opens up the possibility of publishing ***Events** from anywhere in the application, either by calling it directly from a use case or through a job implementing the [Transactional Outbox](https://microservices.io/patterns/data/transactional-outbox.html) pattern, for example.
-
-- ***Proxy*** is the layer responsible for validating the structure of the ***Event***, such as the format of the ***Topic***. When this data is valid, the ***Event*** is passed on to the ***Core*** component.
-
-- ***Core*** is the layer responsible for effectively handling the registration of actions and publications, applying all the logic necessary to satisfy the flow of ***Events***.
-
-- ***Action*** is a function that receives the published event and can be used to perform any operation required, from business rule flows to integrations with external systems, for example: publishing the event in a queue that will be consumed by other systems or sending a notification of something that has happened via Slack, email or SMS.
-
-- ***Filters*** are optional validators that can be defined when an ***Action*** is registered. The ***Filters*** receive the data from the published ***Event*** and through it you can perform checks to execute ***Actions*** only when certain conditions are met. Let's look at the following ***Event***:
-
-  ```json
-    {
-      "topic": "Accounts.Created",
-      "message": {
-        "name": "John Doe",
-        "phone": "+5519999999999",
-        "email": null
-      }
-    }
-  ```
-
-  In this example, the user provides a phone number but not an email (the opposite could also be possible), with filters you can create a rule where the ***Action*** that sends the welcome email will only be executed if the user has provided an email.
-
 # Usage
+To utilize this template in your projects, follow these steps:
+
+Click on the "Use this template" button located at the top of the repository. This will redirect you to the page for creating a new repository.
+
+Once you've created your new repository, clone it to your local machine. You can do this by running the command `git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY` in your terminal, replacing YOUR-USERNAME/YOUR-REPOSITORY with the appropriate details of your new repository.
+
+Please note that this method does not preserve the entire commit history of the template. This means that all the changes you make will be based on a clean commit history, allowing you to make modifications without any historical context from the template.
 
 # Tests
+- To run the tests, execute `yarn test`;
+
+- To run only unit tests, execute `yarn test:unit`;
+
+- To run only e2e tests, execute `yarn test:e2e`;
 
 # Contribution
 
+Contributions are very important to me and to everyone who wants to benefit from this template.
+
+How to contribute?
+If you have a new feature that you want to implement or have come across an error that you know the reason for and would like to fix, you can follow this process:
+
+- Fork this repository;
+- Create a branch with your feature: `git checkout -b my-modification`;
+- Commit your changes: `git commit -m 'mod: My modification'`;
+- Push to your branch: `git push origin my-modification`;
+
+After the merge of your pull request is done, you can delete your branch.
+
 # Additional Resources
+- [Domain-Driven Design](https://awesome-architecture.com/domain-driven-design/domain-driven-design)
+- [Event-Driven Architecture](https://awesome-architecture.com/event-driven-architecture)
+- [Monolithic Modular Architecture](https://awesome-architecture.com/modular-monolith)
+- [Nestjs](https://nestjs.com)
