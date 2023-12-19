@@ -1,5 +1,4 @@
 import { Event } from '../event/event.bridge';
-import { EventTopic } from '../event/types';
 
 export interface EventAction {
   run(event: Event): Promise<void>;
@@ -20,9 +19,9 @@ export interface EventPublisher {
 
 export interface EventBridge extends EventPublisher {
   register(
-    topic: EventTopic,
+    topic: string,
     action: EventAction,
     condition?: EventActionCondition,
   ): void;
-  topicRegistered(topic: EventTopic): boolean;
+  topicRegistered(topic: string): boolean;
 }
