@@ -13,7 +13,7 @@ export abstract class Entity<EntityProps> {
     updatedAt,
     props,
   }: CreateEntityProps<EntityProps>) {
-    this.id = id || randomUUID();
+    this.id = id ?? randomUUID();
     this.props = props;
     const now = new Date();
     this.createdAt = createdAt ?? now;
