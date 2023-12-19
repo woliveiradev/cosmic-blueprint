@@ -1,7 +1,5 @@
-export type Identity = string;
-
 export interface BaseEntityProps {
-  id?: Identity;
+  id?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -11,12 +9,10 @@ export interface CreateEntityProps<Props> extends BaseEntityProps {
 }
 
 export interface DomainEventMessage {
-  readonly aggregateId: Identity;
+  readonly aggregateId: string;
 }
 
-export type EventType = string;
-
 export interface EventMetadata {
-  readonly signatureKey: Identity;
+  readonly signatureKey: string;
   readonly timestamp: Date;
 }

@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
-import { BaseEntityProps, CreateEntityProps, Identity } from './types';
+import { BaseEntityProps, CreateEntityProps } from './types';
 
 export abstract class Entity<EntityProps> {
-  private readonly id: Identity;
+  private readonly id: string;
   private props: EntityProps;
   private readonly createdAt: Date;
   private updatedAt: Date;
