@@ -35,15 +35,15 @@ export class BridgeCore implements EventBridge {
     this.logger.info(`Action processed for topic: ${event.topic}`);
   }
 
-  private getActions(topics: EventTopic[]): Action[] {
-    return topics.flatMap((topic) => {
-      return this.router.get(topic) || [];
+  private getActionsFromTopic(topic: EventTopic): Action[] {
+    const [mainTopic] = topic.split('.');
+    return [topic, withWildcard(mainTopic)].flatMap((topic) => {
+      return this.router.get(topic) ?? [];
     });
   }
 
   public publish(event: Event): void {
-    const [mainTopic] = event.topic.split('.');
-    const actions = this.getActions([event.topic, withWildcard(mainTopic)]);
+    const actions = this.getActionsFromTopic(event.topic);
     this.logger.info(`New event published for topic: ${event.topic}`);
     actions.forEach(({ action, condition }) => {
       this.processAction(event, action, condition);
@@ -51,8 +51,7 @@ export class BridgeCore implements EventBridge {
   }
 
   public topicRegistered(topic: EventTopic): boolean {
-    const [mainTopic] = topic.split('.');
-    const actions = this.getActions([topic, withWildcard(mainTopic)]);
+    const actions = this.getActionsFromTopic(topic);
     return actions.length > 0;
   }
 }
