@@ -1,16 +1,8 @@
 import { Event } from '../event/event.bridge';
 
 export interface EventAction {
+  readonly name: string;
   run(event: Event): Promise<void>;
-}
-
-export type EventActionCondition<EventMessage = unknown> = (
-  event: Event<EventMessage>,
-) => boolean;
-
-export interface Action {
-  action: EventAction;
-  condition?: EventActionCondition;
 }
 
 export interface EventPublisher {
@@ -18,10 +10,6 @@ export interface EventPublisher {
 }
 
 export interface EventBridge extends EventPublisher {
-  register(
-    topic: string,
-    action: EventAction,
-    condition?: EventActionCondition,
-  ): void;
+  register(topic: string, action: EventAction): void;
   topicRegistered(topic: string): boolean;
 }
