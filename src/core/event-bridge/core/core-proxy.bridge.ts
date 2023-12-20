@@ -2,6 +2,7 @@ import { Event } from '../event/event.bridge';
 import { eventTopicRules, topicRules } from './constants';
 import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
 import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
+import { WILDCARD } from './utils/with-wildcard.util';
 import { EventAction, EventBridge } from './types';
 
 export class BridgeCoreProxy implements EventBridge {
@@ -9,10 +10,12 @@ export class BridgeCoreProxy implements EventBridge {
 
   public register(topic: string, action: EventAction): void {
     /*
-      A topic will only be accepted if it follows the "Planet.EarthPlanet"
-      or "Planet.*" pattern. Words follow the Pascal Case pattern.
+      A topic will only be accepted if it follows the "Planet.EarthPlanet",
+      "Planet.*" or "*" pattern. Words follow the Pascal Case pattern.
     */
-    if (!topicRules.test(topic)) throw new InvalidTopicFormat();
+    if (topic !== WILDCARD && !topicRules.test(topic)) {
+      throw new InvalidTopicFormat();
+    }
     this.bridgeCore.register(topic, action);
   }
 

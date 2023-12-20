@@ -1,11 +1,12 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { LoggerStub } from 'core/logger/stubs/logger.stub';
 import { BridgeCoreProxy } from './core-proxy.bridge';
 import { BridgeCore } from './core.bridge';
 import { Event } from '../event/event.bridge';
 import { InvalidTopicFormat } from './exceptions/invalid-topic-format.exception';
 import { TopicNotRegistered } from './exceptions/topic-not-registered.exception';
 import { EventActionStub } from './stubs/event-action.stub';
-import { LoggerStub } from 'core/logger/stubs/logger.stub';
+import { WILDCARD, withWildcard } from './utils/with-wildcard.util';
 import { EventAction } from './types';
 
 let event: Event;
@@ -50,8 +51,15 @@ describe('Bridge Core Proxy Validate Register Route', () => {
     ).toThrowError(new InvalidTopicFormat());
   });
 
+  it('should be able to forward a register when topic is wildcard', () => {
+    const registerSpy = vi.spyOn(bridgeCore, 'register');
+    const result = bridgeCoreProxy.register(WILDCARD, eventActionStub);
+    expect(result).toBeUndefined();
+    expect(registerSpy).toHaveBeenCalled();
+  });
+
   it('should be able to forward a register when sub topic is wildcard', () => {
-    const validTopic = 'Test.*';
+    const validTopic = withWildcard('Test');
     const registerSpy = vi.spyOn(bridgeCore, 'register');
     const result = bridgeCoreProxy.register(validTopic, eventActionStub);
     expect(result).toBeUndefined();
@@ -75,8 +83,8 @@ describe('Bridge Core Proxy Validate Publish Event', () => {
   });
 
   it('should not be albe to forward a event publish when topic contain a wildcard', () => {
-    bridgeCoreProxy.register('Test.*', eventActionStub);
-    const eventWithInvalidTopic = new Event('Test.*', {});
+    bridgeCoreProxy.register(withWildcard('Test'), eventActionStub);
+    const eventWithInvalidTopic = new Event(withWildcard('Test'), {});
     expect(() => bridgeCoreProxy.publish(eventWithInvalidTopic)).toThrowError(
       new InvalidTopicFormat(),
     );

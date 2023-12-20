@@ -1,7 +1,7 @@
 import { Logger } from 'core/logger';
 import { Event } from '../event/event.bridge';
-import { withWildcard } from './utils/with-wildcard.util';
 import { EventAction, EventBridge } from './types';
+import { WILDCARD, withWildcard } from './utils/with-wildcard.util';
 
 export class BridgeCore implements EventBridge {
   private readonly router: Map<string, EventAction[]> = new Map();
@@ -22,15 +22,15 @@ export class BridgeCore implements EventBridge {
     );
   }
 
-  private getActionsFromTopic(topic: string): EventAction[] {
+  private getActions(topic: string): EventAction[] {
     const [mainTopic] = topic.split('.');
-    return [topic, withWildcard(mainTopic)].flatMap((topic) => {
+    return [WILDCARD, topic, withWildcard(mainTopic)].flatMap((topic) => {
       return this.router.get(topic) ?? [];
     });
   }
 
   public publish(event: Event): void {
-    const actions = this.getActionsFromTopic(event.topic);
+    const actions = this.getActions(event.topic);
     this.logger.info(`New event published for topic: ${event.topic}`);
     actions.forEach((action) => {
       this.processAction(event, action);
@@ -38,7 +38,7 @@ export class BridgeCore implements EventBridge {
   }
 
   public topicRegistered(topic: string): boolean {
-    const actions = this.getActionsFromTopic(topic);
+    const actions = this.getActions(topic);
     return actions.length > 0;
   }
 }
