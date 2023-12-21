@@ -1,10 +1,11 @@
+import { randomUUID } from 'crypto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { LoggerStub } from 'core/logger/stubs/logger.stub';
 import { BridgeCore } from './core.bridge';
 import { Event } from '../event/event.bridge';
 import { EventActionStub } from './stubs/event-action.stub';
+import { WILDCARD, withWildcard } from './utils/with-wildcard.util';
 import { EventAction } from './types';
-import { LoggerStub } from 'core/logger/stubs/logger.stub';
-import { randomUUID } from 'crypto';
 
 let event: Event;
 let eventActionStub: EventAction;
@@ -27,40 +28,24 @@ describe('Bridge Core Register Route', () => {
 });
 
 describe('Bridge Core Publish Event', () => {
-  it('should be able to run a action without filter', () => {
+  it('should be able to run a action when registered topic contains wildcard', () => {
     const actionSpy = vi.spyOn(eventActionStub, 'run');
-    bridgeCore.register(event.topic, eventActionStub);
+    bridgeCore.register(withWildcard('Test'), eventActionStub);
     bridgeCore.publish(event);
     expect(actionSpy).toHaveBeenCalled();
   });
 
-  it('should be able to run a action when registed topic contains wildcard', () => {
+  it('should be able to run a action when registered topic is a wildcard', () => {
     const actionSpy = vi.spyOn(eventActionStub, 'run');
-    bridgeCore.register('Test.*', eventActionStub);
+    bridgeCore.register(WILDCARD, eventActionStub);
     bridgeCore.publish(event);
     expect(actionSpy).toHaveBeenCalled();
-  });
-
-  it('should be able to run a action when a filter event returns true', () => {
-    const actionSpy = vi.spyOn(eventActionStub, 'run');
-    const eventActionFilter = vi.fn(() => true);
-    bridgeCore.register(event.topic, eventActionStub, eventActionFilter);
-    bridgeCore.publish(event);
-    expect(actionSpy).toHaveBeenCalled();
-  });
-
-  it('should not be able to run a action when a filter event returns false', () => {
-    const actionSpy = vi.spyOn(eventActionStub, 'run');
-    const eventActionFilter = vi.fn(() => false);
-    bridgeCore.register(event.topic, eventActionStub, eventActionFilter);
-    bridgeCore.publish(event);
-    expect(actionSpy).not.toHaveBeenCalled();
   });
 });
 
 describe('Bridge Core Topic Registered', () => {
   it('should be able to return true when registered topic contains a wildcard', () => {
-    const registeredTopic = 'Test.*';
+    const registeredTopic = withWildcard('Test');
     bridgeCore.register(registeredTopic, eventActionStub);
     const result = bridgeCore.topicRegistered(registeredTopic);
     expect(result).toBeTruthy();

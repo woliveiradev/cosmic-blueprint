@@ -1,5 +1,9 @@
 import { EventAction } from '../types';
 
 export class EventActionStub implements EventAction {
-  async run(): Promise<void> {}
+  readonly name = EventActionStub.name;
+
+  async run(): Promise<void> {
+    return;
+  }
 }

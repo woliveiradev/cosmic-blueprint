@@ -3,6 +3,7 @@
 <p>Template for Back-End projects with Nodejs, Nestjs, Modular Monoliths and Domain Driven Design.</p>
 
 # Table of Contents
+
 - [Introduction](#introduction)
 - [Current Versions](#current-versions)
 - [Features](#features)
@@ -13,10 +14,13 @@
 - [Additional Resources](#additional-resources)
 
 # Introduction
+
 This repository provides a basic framework for Back-End projects using technologies such as Nodejs, Nestjs and approaches such as Domain Driven Design, Event-Driven Architecture, monolithic modular architecture or microservices. Feel free to modify or contribute to this template.
 
 # Current Versions
+
 This template is based on:
+
 - Nodejs v20.9.0
 - Yarn v1.22.19
 - Typescript v5.1.3
@@ -24,6 +28,7 @@ This template is based on:
 - Express v4.18.2
 
 # Features
+
 - Code style with Eslint, Prettier and Editorconfig
 - Lefthook for git hook commands
 - Semantic commit with Commitlint
@@ -32,9 +37,10 @@ This template is based on:
 - Security http headers with Helmet
 - Logging using Winston
 - Environment variables using Nestjs config module
-- Event Bridge: [See more](./docs/EVENT_BRIDGE.md)
+- Event Bridge (Bus)
 
 # Structure of Template
+
 ```md
 |- src
 |  |- core
@@ -60,6 +66,7 @@ This template is based on:
 ```
 
 # Usage
+
 To utilize this template in your projects, follow these steps:
 
 Click on the "Use this template" button located at the top of the repository. This will redirect you to the page for creating a new repository.
@@ -69,10 +76,9 @@ Once you've created your new repository, clone it to your local machine. You can
 Please note that this method does not preserve the entire commit history of the template. This means that all the changes you make will be based on a clean commit history, allowing you to make modifications without any historical context from the template.
 
 # Tests
+
 - To run the tests, execute `yarn test`;
-
 - To run only unit tests, execute `yarn test:unit`;
-
 - To run only e2e tests, execute `yarn test:e2e`;
 
 # Contribution
@@ -90,6 +96,7 @@ If you have a new feature that you want to implement or have come across an erro
 After the merge of your pull request is done, you can delete your branch.
 
 # Additional Resources
+
 - [Domain-Driven Design](https://awesome-architecture.com/domain-driven-design/domain-driven-design)
 - [Event-Driven Architecture](https://awesome-architecture.com/event-driven-architecture)
 - [Monolithic Modular Architecture](https://awesome-architecture.com/modular-monolith)
