@@ -1,1 +1,1 @@
-export { EventPublisher } from './types';
+export { EventPublisher, EventAction } from './types';
