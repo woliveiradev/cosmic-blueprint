@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { z } from 'zod';
-import { InvalidSecretsException, SecretNotFoundException } from './exceptions';
+import { InvalidSecretsError, SecretNotFoundError } from './errors';
 
 const secretsSchema = z.object({
   ENVIRONMENT: z.string(),
@@ -17,12 +17,10 @@ export class LocalSecretsManager implements SecretsManager {
 
   constructor() {
     const secrets = secretsSchema.safeParse({
-      ENVIRONMENT: process.env.NODE_ENV,
+      ENVIRONMENT: process.env.Data,
     });
     if (!secrets.success) {
-      throw new InvalidSecretsException(
-        secrets.error.message as unknown as string,
-      );
+      throw new InvalidSecretsError(secrets.error.message);
     }
     this.secrets = secrets.data;
   }
@@ -30,7 +28,7 @@ export class LocalSecretsManager implements SecretsManager {
   public getValue(secretName: keyof Secrets): string {
     const secret = this.secrets[secretName];
     if (!secret) {
-      throw new SecretNotFoundException(secretName);
+      throw new SecretNotFoundError(secretName);
     }
     return secret;
   }
