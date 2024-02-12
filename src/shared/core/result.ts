@@ -1,4 +1,4 @@
-import { ResourceError } from './errors';
+import { BaseError } from './errors';
 
 export type Either<L, A> = Error<L, A> | Data<L, A>;
 
@@ -39,7 +39,7 @@ export class Result {
     return new Data(value);
   }
 
-  public static fail<Error extends ResourceError>(
+  public static fail<Error extends BaseError>(
     error: Error,
   ): Either<Error, never> {
     return new Error(error);
