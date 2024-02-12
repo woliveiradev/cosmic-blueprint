@@ -1,4 +1,4 @@
-import { Random } from 'shared/utils';
+import { UniqueEntityId } from './unique-entity-id';
 
 export type BaseEntityProps = {
   id?: string;
@@ -11,24 +11,12 @@ export type CreateEntity<Props> = Props & BaseEntityProps;
 type EntityProps<Props> = Omit<Props, keyof BaseEntityProps>;
 
 export abstract class Entity<CustomProps> {
-  private readonly _id: string;
+  private readonly _id: UniqueEntityId;
   private props: EntityProps<CustomProps>;
   public readonly createdAt: Date;
   private _updatedAt?: Date;
 
-  protected constructor({
-    id,
-    createdAt,
-    updatedAt,
-    ...props
-  }: CreateEntity<CustomProps>) {
-    this._id = id ?? Random.uniqueId();
-    this.props = props;
-    this.createdAt = createdAt ?? new Date();
-    this._updatedAt = updatedAt ?? undefined;
-  }
-
-  public get id(): string {
+  public get id(): UniqueEntityId {
     return this._id;
   }
 
@@ -38,6 +26,31 @@ export abstract class Entity<CustomProps> {
 
   public get updatedAt(): Date | undefined {
     return this._updatedAt;
+  }
+
+  protected constructor({
+    id,
+    createdAt,
+    updatedAt,
+    ...props
+  }: CreateEntity<CustomProps>) {
+    this._id = new UniqueEntityId(id);
+    this.props = props;
+    this.createdAt = createdAt ?? new Date();
+    this._updatedAt = updatedAt ?? undefined;
+  }
+
+  public equals(entity: Entity<CustomProps>): boolean {
+    if (entity === null || entity === undefined) {
+      return false;
+    }
+    if (!(entity instanceof Entity)) {
+      return false;
+    }
+    if (this === entity) {
+      return true;
+    }
+    return this._id.equals(entity.id);
   }
 
   protected updateProps(props: Partial<CustomProps>): void {

@@ -5,3 +5,4 @@ export * from './repository';
 export * from './service';
 export * from './use-case';
 export * from './value-object';
+export * from './unique-entity-id';
