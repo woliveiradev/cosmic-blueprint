@@ -1,4 +1,4 @@
-import { Random } from 'shared/utils';
+import { Random } from '../utils';
 
 export class UniqueEntityId {
   private readonly id: string;
