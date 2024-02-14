@@ -17,7 +17,6 @@ async function bootstrap() {
   });
   app.use(helmet());
   const secretsManager = app.get<SecretsManagerGateway>(SECRETS_MANAGER_TOKEN);
-  const port = secretsManager.getValue('APP_PORT');
-  await app.listen(port);
+  await app.listen(secretsManager.getValue('APP_PORT'));
 }
 bootstrap();
