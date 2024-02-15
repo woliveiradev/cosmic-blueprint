@@ -1,0 +1,33 @@
+name: New feature
+description: Request a new feature
+labels: ["feature"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Provide a detailed description of the new feature.
+      placeholder: This feature will allow users to...
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: List the requirements for this new feature.
+      placeholder: |
+        - The user should be able to...
+        - The user can...
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Provide a list of criteria that must be met for this feature to be considered complete.
+      placeholder: |
+        - The feature should work correctly under normal usage conditions...
+        - The feature should be tested...
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Include any other relevant information here.
