@@ -1,8 +1,6 @@
 pre-commit:
   parallel: true
   commands:
-    audit:
-      run: yarn audit
     eslint:
       glob: "*.ts"
       run: yarn eslint {staged_files}

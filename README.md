@@ -36,22 +36,28 @@ This template is based on:
 - CORS
 - Security http headers with Helmet
 - Logging using Winston
-- Environment variables using Nestjs config module
-- Event Bridge (Bus)
+- Environment variables with custom secrets module (with validation)
 
 # Structure of Template
 
 ```md
 |- src
-|  |- core
-|  |  |- context
-|  |  |- domain
-|  |  |- event-bridge
-|  |  |- exceptions
-|  |  └─ logger
+|  |- _root
+|  |  |- server.ts
+|  |  └─ module.ts
 |  |- modules
-|  |- module.ts
-|  └─ server.ts
+|  └─ shared
+|     |- core
+|     |  |- domain
+|     |  |- utils
+|     |  |- errors.ts
+|     |  └─ result.ts
+|     |- http
+|     |- logger
+|     |- secrets
+|     └─ di.ts
+|- .editorconfig
+|- .env.example
 |- .eslintrc.js
 |- .nvmrc
 |- commitlint.config.js
