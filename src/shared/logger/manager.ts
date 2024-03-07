@@ -1,6 +1,6 @@
+import * as winston from 'winston';
 import { InjectAdapter } from 'shared/di';
 import { SECRETS_MANAGER_TOKEN, SecretsManagerGateway } from 'shared/secrets';
-import * as winston from 'winston';
 
 export enum LoggerLevel {
   DEBUG = 'debug',

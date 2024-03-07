@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
-import { Logger } from './manager';
 import { SecretsModule } from 'shared/secrets';
+import { Logger } from './manager';
 
 export const LOGGER_TOKEN = Symbol('LOGGER');
 
